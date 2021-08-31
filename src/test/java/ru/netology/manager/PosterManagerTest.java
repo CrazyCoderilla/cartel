@@ -25,14 +25,26 @@ public class PosterManagerTest {
 
     @Test
     public void lastTest() {
-        PosterManager posterManager = new PosterManager(5);
+        PosterManager posterManager = new PosterManager(3);
         Movie movie = new Movie();
         movie.setName("test");
         posterManager.add(movie);
 
         Movie newMov = new Movie();
         newMov.setName("new");
-        posterManager.add(movie);
+        posterManager.add(newMov);
         assertEquals(1, posterManager.getLastMovies(1).length);
+
+        Movie mov3d = new Movie();
+        newMov.setName("3d");
+        posterManager.add(mov3d);
+        assertEquals(3, posterManager.getLastMovies(3).length);
+        assertEquals(3, posterManager.getLastMovies(3).length);
+
+        Movie mov4k = new Movie();
+        mov4k.setName("4k");
+        posterManager.add(mov4k);
+        assertEquals("4k",posterManager.getLastMovies(1)[0].getName());
+
     }
 }
