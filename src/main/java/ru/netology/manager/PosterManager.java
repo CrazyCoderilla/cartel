@@ -23,13 +23,13 @@ public class PosterManager {
     }
 
     public Movie[] getLastMovies(int limit) {
-        Movie[] last10 = new Movie[limit];
+        Movie[] last = new Movie[limit];
         int counter = 0;
         for (int i = movieTape.length - 1; counter < limit; i--) {
-            last10[counter] = movieTape[i];
+            last[counter] = movieTape[i];
             counter++;
         }
-        return last10;
+        return last;
     }
 
 }
