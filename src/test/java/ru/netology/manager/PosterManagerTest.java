@@ -24,34 +24,31 @@ public class PosterManagerTest {
     }
 
     @Test
-    public void lastTest() {
-
-        // в менеджере фильмов меньше чем лимит
-        PosterManager posterManager = new PosterManager(3);
+    public void lessLimit() {
+        PosterManager posterManager = new PosterManager(2);
         Movie movie = new Movie();
         movie.setName("test");
         posterManager.add(movie);
+        assertArrayEquals(new Movie[]{movie}, posterManager.getLastMovies(1));
+    }
 
-        Movie newMov = new Movie();
-        newMov.setName("new");
-        posterManager.add(newMov);
-        assertEquals(1, posterManager.getLastMovies(1).length);
-        assertArrayEquals(new Movie[]{newMov, movie}, posterManager.getLastMovies(2));
-        assertArrayEquals(new Movie[]{newMov}, posterManager.getLastMovies(1));
+    @Test
+    public void equalLimit() {
+        PosterManager posterManager = new PosterManager(1);
+        Movie movie = new Movie();
+        movie.setName("test");
+        posterManager.add(movie);
+        assertArrayEquals(new Movie[]{movie}, posterManager.getLastMovies(1));
+    }
 
-
-        // в менеджере столько же сколько задан лимит
-        Movie mov3d = new Movie();
-        newMov.setName("3d");
-        posterManager.add(mov3d);
-        assertEquals(3, posterManager.getLastMovies(3).length);
-        assertArrayEquals(new Movie[]{mov3d, newMov, movie}, posterManager.getLastMovies(3));
-
-        // в менеджере фильмов больше лимита
-        Movie mov4k = new Movie();
-        mov4k.setName("4k");
-        posterManager.add(mov4k);
-        assertEquals("4k", posterManager.getLastMovies(1)[0].getName());
-        assertArrayEquals(new Movie[]{mov4k, mov3d}, posterManager.getLastMovies(2));
+    @Test
+    public void moreLimit() {
+        PosterManager posterManager = new PosterManager(1);
+        Movie movie = new Movie();
+        movie.setName("test");
+        posterManager.add(movie);
+        posterManager.add(movie);
+        assertArrayEquals(new Movie[]{movie}, posterManager.getLastMovies(1));
+        assertArrayEquals(new Movie[]{movie, movie}, posterManager.getLastMovies(2));
     }
 }
